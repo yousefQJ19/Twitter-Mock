@@ -11,13 +11,16 @@ import PublicRoute from "./publicRoute"
 import HomePageLayout from '../Layouts/dashBoardLayout';
 import AuthDashBoard from "../Layouts/authLayout"
 import LoginPage from "../Pages/LoginPage"
-
-
+import ProfilePage from "../Pages/ProfilePostPage"
+import ProfileLayout from "../Layouts/profileLayout"
 const root=createBrowserRouter(createRoutesFromElements(
     <Route>
-        <Route element={<PrivateRoute><HomePageLayout/></PrivateRoute>} >
+        <Route  element={<PrivateRoute><HomePageLayout/></PrivateRoute>} >
             <Route path="/" element={<HomePage/>}/>
-            <Route path="profile" element={<h1>profile page</h1>}/>
+            
+            <Route  element={<ProfileLayout/>}>
+                <Route path="profile" element={<ProfilePage/>}/>
+            </Route>
         </Route>
         
         <Route path="/" element={<PublicRoute> <AuthDashBoard/> </PublicRoute>} >

@@ -12,7 +12,7 @@ function RightList() {
                 position={"sticky"}
                 top={0}
                 >
-            <Text color="white">Right List </Text>
+            <Text >Right List </Text>
         </Flex>
     )
 }

@@ -1,20 +1,18 @@
-import {Flex,Box} from "@chakra-ui/react"
+import {Flex} from "@chakra-ui/react"
 import { Outlet } from "react-router-dom";
 import { BsTwitterX } from "react-icons/bs";
 
 function AuthDashBoard() {
     return ( 
-        <Flex h={"100vh"}>
-            <Box alignContent={"center"}
-                 ml={"200px"}>
-                <BsTwitterX color="white" size={600} />
-            </Box>
-            <Box>
-            <Outlet/>
-        </Box>
+        <Flex h={"100vh"}
+              justifyContent={"space-around"}
+              alignItems={"center"}>
+
+                <BsTwitterX  size={600} />
+                <Outlet/>
+
         </Flex>
-       
-     );
+    );
 }
 
 export default AuthDashBoard;

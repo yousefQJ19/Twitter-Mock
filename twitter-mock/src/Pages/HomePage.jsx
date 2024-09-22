@@ -1,36 +1,41 @@
-import {Tabs,TabList,Tab, Box, Stack} from "@chakra-ui/react"
+import {Tabs,TabList,Tab, Box, Stack ,Text} from "@chakra-ui/react"
 import {NavLink} from "react-router-dom"
 
 import AddPost from "../Components/HomePageComponent.jsx/addPost";
 import Post from "../Components/HomePageComponent.jsx/post";
-// import { useEffect,useState } from "react";
-// import { supabase } from "../utility/config";
+import { useContext } from "react";
+import { AuthContext } from "../utility/Context";
+import { useEffect,useState } from "react";
+import { supabase } from "../utility/config";
 
 function HomePage() {
-   
-    // const [posts,setPost] =useState(null)
-    // const [isLoading,setIsLoading]=useState(true)
-    
-    
-    // useEffect(()=>{
-    //     async function getPost() {
-    //         const {data,error}=await supabase.from('Posts').select()
-    //         setPost(data)
-    //         setIsLoading(false)
-    //         console.log(data)
-    //         console.log(error)
-    //     }
-        
-    //     getPost()
+    const {user}= useContext(AuthContext)
+    console.log(user)
+    const [posts,setPost] =useState(null)
+    const [isLoading,setIsLoading]=useState(true)
 
-    // },[])
-    // if (isLoading){
-    //     return (<h1>loading</h1>)
-    // }
+    useEffect(()=>{
+        async function getPost() {
+            const {data,error}=await supabase.from('Posts')
+            .select("*,profiles(user_name)")
+            
+
+
+
+            setPost(data)
+            setIsLoading(false)
+            console.log(data)
+            console.log(error)
+        }
+        
+        getPost()
+
+    },[])
+    if (isLoading){
+        return (<h1>loading</h1>)
+    }
     return (
         <Box>
-            
-                
                 <Tabs variant='enclosed'
                         isFitted 
                         position={"sticky"}
@@ -41,13 +46,11 @@ function HomePage() {
                         alignItems={"center"}>
                 <TabList borderX={"1px solid gray"} >
                     <Tab  as={NavLink} 
-                            to={"#"} 
-                            color={"white"}>
+                            to={"#"} >
                                 Following
                     </Tab>
                     <Tab as={NavLink} 
-                        to={"#"} 
-                        color={"white"}>
+                        to={"#"} >
                             For You
                     </Tab>
                 </TabList>
@@ -56,15 +59,12 @@ function HomePage() {
             <Box>
                 <AddPost />
             </Box>
-            <Stack h={"200000px"} >
-                {/* {
+            <Stack>
+                {
                     posts.map(post=>(
-                        <Text color={"white"} key={post.id}>{post.body}</Text>
+                        <Post postData={post} key={post.id}/>
                     ))
-                } */}
-                
-                <Post/>
-            
+                }
             </Stack>
         </Box>
         

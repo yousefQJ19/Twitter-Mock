@@ -8,7 +8,7 @@ import {Flex} from "@chakra-ui/react"
 
 function IconList() {
     return ( 
-        <Flex gap={2}
+        <Flex gap={3}
               p={4}
               fontSize={20}
               color={"blue.500"}>

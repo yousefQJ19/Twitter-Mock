@@ -1,6 +1,7 @@
 import { Box,Button,List, VStack} from "@chakra-ui/react";
 import { RiTwitterXLine } from "react-icons/ri";
 import ListItem from "../Components/LiftListComponents/listItem"
+import { supabase } from "../utility/config";
 //icons
 import { IoHomeSharp } from "react-icons/io5";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
@@ -20,6 +21,15 @@ import { AuthContext } from "../utility/Context";
 
 function LeftList() {
         const {updateValue} =useContext(AuthContext)
+
+        const logOut = async () => {
+                const { error } = await supabase.auth.signOut();
+                if (error) {
+                        console.error('Error signing out:', error);
+                } else {
+                        updateValue(null);
+                }
+        };
         return ( 
                 <VStack  position={"sticky"}
                         top={0}
@@ -40,7 +50,7 @@ function LeftList() {
                                         <ListItem listIcon={IoHomeSharp} text={"Home"} link={"/"}/>
                                         <ListItem listIcon={HiMiniMagnifyingGlass} text={"Explore"}/>
                                         <ListItem listIcon={IoMdNotifications} text={"Notifications"}/>
-                                        <ListItem listIcon={LuMessageSquare} text={"Messages"}/>
+                                        <ListItem listIcon={LuMessageSquare} text={"Messages"} />
                                         <ListItem listIcon={GiPerspectiveDiceSixFacesRandom} text={"Grok"}/>
                                         <ListItem listIcon={CiCircleList} text={"List"}/>
                                         <ListItem listIcon={PiBookmarkSimpleLight} text={"Bookmarks"}/>
@@ -49,7 +59,8 @@ function LeftList() {
                                         <ListItem listIcon={GoPerson} text={"Profile"} link={"profile"}/>
                                         <ListItem listIcon={CiCircleMore} text={"More"}/>
                         </List>
-                        <Button onClick={()=>updateValue(false)}>log out</Button>
+                        <Button onClick={()=>logOut()}>log out</Button>
+                        
                 </VStack>
         );
 }
